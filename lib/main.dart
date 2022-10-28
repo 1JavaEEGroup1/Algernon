@@ -1,23 +1,22 @@
+import 'package:algernon/ui/drawerScreen.dart';
+import 'package:algernon/ui/homeScreen.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
-
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: HomePage(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: const [DrawerScreen(), HomeScreen()],
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
+

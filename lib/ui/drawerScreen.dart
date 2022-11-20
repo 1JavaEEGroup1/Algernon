@@ -27,7 +27,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Text("Miroslava Savitskaya",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold)),

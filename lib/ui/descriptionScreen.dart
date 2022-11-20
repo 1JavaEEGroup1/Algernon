@@ -117,6 +117,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
   }
 
+  //评论栏
   observeField() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

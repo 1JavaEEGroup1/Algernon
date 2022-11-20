@@ -6,6 +6,8 @@ class Strings {
   static String tag3 = "Recent";
   static String drawerTitle2 = "View Profile";
   static String drawerTitle1 = "Sun Shibo";
+  static String titleImageUrl =
+      "https://img.js.design/assets/img/622ea99cfcdca67c5b4d1a37.png";
 }
 
 List<Map> drawerItems = [

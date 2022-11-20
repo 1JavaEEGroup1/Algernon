@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:algernon/configuration.dart';
 import 'package:algernon/ui/descriptionScreen.dart';
+import 'package:algernon/widget/Banner.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,47 +43,43 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: label(),
           ),
-          Container(
-            height: 354,
-            width: 347,
-            color: Colors.indigoAccent,
-            margin: const EdgeInsets.symmetric(horizontal: 24),
-            child: banner(),
-          ),
+          banner(),
         ],
       ),
     );
   }
 
-  //titleBar
+  //titleBar include icon back, search and notification
   Widget titleBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //open or close drawer button
+
+        ///open or close drawer button
         isOpen
             ? IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  setState(() {
-                    xOffset = 0;
-                    yOffset = 0;
-                    scaleFactor = 1;
-                    isOpen = false;
-                  });
-                },
-              )
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            setState(() {
+              xOffset = 0;
+              yOffset = 0;
+              scaleFactor = 1;
+              isOpen = false;
+            });
+          },
+        )
             : IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  setState(() {
-                    xOffset = 230;
-                    yOffset = 150;
-                    scaleFactor = 0.7;
-                    isOpen = true;
-                  });
-                }),
-        //search and notification button
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              setState(() {
+                xOffset = 230;
+                yOffset = 150;
+                scaleFactor = 0.7;
+                isOpen = true;
+              });
+            }),
+
+        ///search and notification button
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -105,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool labelOnTwo = false;
   bool labelOnThree = false;
 
-  //label
+  ///label
   label() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,8 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold))
                 : Text(Strings.tag1,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 18, color: Colors.grey))),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18, color: Colors.grey))),
         GestureDetector(
             onTap: () {
               setState(() {
@@ -142,8 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold))
                 : Text(Strings.tag2,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 18, color: Colors.grey))),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18, color: Colors.grey))),
         GestureDetector(
             onTap: () {
               setState(() {
@@ -159,17 +158,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold))
                 : Text(Strings.tag3,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 18, color: Colors.grey))),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18, color: Colors.grey))),
       ],
     );
   }
 
+  ///banner
   banner() {
-    return Stack();
-  }
-
-  list() {
-    return Stack();
+    return BannerWidget(
+      imageList: [
+        Strings.titleImageUrl,
+        Strings.titleImageUrl,
+        Strings.titleImageUrl
+      ],
+      onPageClicked: (index) {
+        print(index);
+      },
+      stringList: const [
+        "This is the first banner",
+        "This is the second banner",
+        "This is the third banner",
+      ],
+    );
   }
 }

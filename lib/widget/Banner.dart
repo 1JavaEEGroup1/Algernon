@@ -11,12 +11,8 @@ class BannerWidget extends StatefulWidget {
     this.width = 0,
     this.imageWidth = 340,
     this.imageHeight = 350,
-    this.imageRadius = const BorderRadius.only(
-      topLeft: Radius.circular(35),
-      bottomRight: Radius.circular(35),
-      topRight: Radius.circular(20),
-      bottomLeft: Radius.circular(20),
-    ),
+    this.imageMargin = EdgeInsets.zero,
+    this.imageRadius = BorderRadius.zero,
     this.autoDisplayTime = 500,
     required this.onPageClicked,
     this.indicatorStyle = false,
@@ -24,6 +20,7 @@ class BannerWidget extends StatefulWidget {
     this.indicatorMargin = 4,
     this.indicatorHeight = 2,
     this.indicatorWidth = 15,
+    this.indicatorPosition = const Alignment(0, 0.93),
     this.indicatorDefaultColor = Colors.black26,
     this.indicatorSelectedColor = Colors.black,
   }) : super(key: key);
@@ -39,6 +36,8 @@ class BannerWidget extends StatefulWidget {
 
   ///图片圆角
   final BorderRadius imageRadius;
+  //图片内边距
+  final EdgeInsets imageMargin;
 
   ///图片集合
   final List<String> imageList;
@@ -54,6 +53,7 @@ class BannerWidget extends StatefulWidget {
   final double indicatorMargin;
   final double indicatorHeight;
   final double indicatorWidth;
+  final Alignment indicatorPosition;
   final Color indicatorDefaultColor;
   final Color indicatorSelectedColor;
 
@@ -131,7 +131,8 @@ class _BannerState extends State<BannerWidget> {
               currentIndex = index;
             });
           },
-        ));
+        )
+    );
   }
 
   // bannerTitleWidget() {
@@ -159,7 +160,7 @@ class _BannerState extends State<BannerWidget> {
             ),
           )
         : Align(
-            alignment: const Alignment(0.0, 0.93),
+            alignment: widget.indicatorPosition,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: indicatorList()));
@@ -170,7 +171,7 @@ class _BannerState extends State<BannerWidget> {
     return Container(
         height: widget.imageHeight,
         width: widget.imageWidth,
-        margin: const EdgeInsets.symmetric(horizontal: 24),
+        margin: widget.imageMargin,
         decoration: BoxDecoration(
           borderRadius: widget.imageRadius,
           image: DecorationImage(
@@ -198,7 +199,7 @@ class _BannerState extends State<BannerWidget> {
         height: Size.fromRadius(widget.indicatorHeight).height,
         margin: EdgeInsets.only(right: widget.indicatorMargin),
         decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
+            shape: widget.indicatorShape,
             color: currentIndex % widget.imageList.length + 1 == i + 1
                 ? widget.indicatorSelectedColor
                 : widget.indicatorDefaultColor),

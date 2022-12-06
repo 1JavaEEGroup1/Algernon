@@ -167,6 +167,13 @@ class _HomeScreenState extends State<HomeScreen> {
   ///banner
   banner() {
     return BannerWidget(
+      imageMargin: const EdgeInsets.symmetric(horizontal: 24),
+      imageRadius: const BorderRadius.only(
+        topLeft: Radius.circular(35),
+        bottomRight: Radius.circular(35),
+        topRight: Radius.circular(20),
+        bottomLeft: Radius.circular(20),
+      ),
       imageList: [
         Strings.titleImageUrl,
         Strings.titleImageUrl,

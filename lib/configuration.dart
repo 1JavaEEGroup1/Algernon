@@ -10,6 +10,11 @@ class Strings {
       "https://img.js.design/assets/img/622ea99cfcdca67c5b4d1a37.png";
 }
 
+class ImageString{
+  static String logo = 'images/logo.png';
+}
+
+
 List<Map> drawerItems = [
   {'icon': Icons.home_outlined, 'title': "Home", 'selected': 1},
   {'icon': Icons.bookmark_add_outlined, 'title': "Saved News", 'selected': 0},

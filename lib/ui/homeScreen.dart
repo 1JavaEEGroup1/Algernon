@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:algernon/configuration.dart';
 import 'package:algernon/ui/descriptionScreen.dart';
-import 'package:algernon/widget/Banner.dart';
+import 'package:algernon/ui/widget/Banner.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: label(),
           ),
           banner(),
+          // ListView.builder(itemBuilder: (context, index) )
         ],
       ),
     );
@@ -54,31 +55,29 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-
         ///open or close drawer button
         isOpen
             ? IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            setState(() {
-              xOffset = 0;
-              yOffset = 0;
-              scaleFactor = 1;
-              isOpen = false;
-            });
-          },
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                setState(() {
+                  xOffset = 0;
+                  yOffset = 0;
+                  scaleFactor = 1;
+                  isOpen = false;
+                });
+              },
         )
             : IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              setState(() {
-                xOffset = 230;
-                yOffset = 150;
-                scaleFactor = 0.7;
-                isOpen = true;
-              });
-            }),
-
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                setState(() {
+                  xOffset = 230;
+                  yOffset = 150;
+                  scaleFactor = 0.7;
+                  isOpen = true;
+                });
+              }),
         ///search and notification button
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

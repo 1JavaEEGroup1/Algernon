@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Strings {
+
+  static String email = "Email";
+  static String password = "Password";
+  static String name = "Name";
+  static String login = "Login";
+
   static String tag1 = "Popular";
   static String tag2 = "Trending";
   static String tag3 = "Recent";
@@ -8,10 +14,26 @@ class Strings {
   static String drawerTitle1 = "Sun Shibo";
   static String titleImageUrl =
       "https://img.js.design/assets/img/622ea99cfcdca67c5b4d1a37.png";
+  // WelcomePage used
+  static String welcomeTitle = "Welcome To DigiNews";
+  static String loginFirst = "Continue with Email";
+  static String loginSecond= "Continue with FaceBook";
+  static String loginThird = "Continue with Google";
+  static String loginValidity= "By continuing, you accept the Terms of Use and Privacy Policy";
+  // LoginPage used
+  static String loginTitle = "Welcome back!";
+  static String loginTips = "Enter your email address and password to login";
+  static String signupTitle = "Sign up";
+  static String signupTips = "It only takes a minute to create your account";
+  static String signup = "Create Account";
+  static String toRegister = "Don’t have an account? Sign Up";
 }
 
 class ImageString{
-  static String logo = 'images/logo.png';
+  static String uri = "assets/images/1.0x/";
+  static String logo = 'assets/images/logo.png';
+  static String googleLogo = '${uri}google_icon.png';
+  static String logo2 = '${uri}app_logo.png';
 }
 
 

@@ -12,6 +12,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool login = true;
+  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _userPassword = TextEditingController();
+  final TextEditingController _userEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -36,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           const SizedBox(height: 100,),
+          Text(_userEmail.text + _userName.text + _userPassword.text),
           Container(
               margin: const EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
               child: loginAndChange(),)
@@ -44,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  ///登录界面
   Widget loginFragment() {
     return Column(
       children: [
@@ -89,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
               )),
           ),
           keyboardType: TextInputType.emailAddress,
+          controller: _userEmail
         ),
         const SizedBox(height: 20,),
         //Password
@@ -126,15 +132,126 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 1,
                 )),
           ),
+          controller: _userPassword,
         ),
       ],
     );
   }
 
+  ///注册界面
   Widget signupFragment() {
     return Column(
       children: [
-
+        Row(
+          children: [
+            Text(Strings.signupTitle,
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+          ],
+        ),
+        const SizedBox(height: 20,),
+        Text(Strings.signupTips,
+          style:const TextStyle(color: Colors.black26, fontSize: 18),
+        ),
+        const SizedBox(height: 30,),
+        // UserName
+        TextField(
+          decoration: InputDecoration(
+            labelText: Strings.name,
+            labelStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+            ),
+            hintText: "Your account name",
+            hintStyle: const TextStyle(
+                color: Colors.black26,
+                fontSize: 18,
+                fontStyle: FontStyle.italic
+            ),
+            filled: true,
+            fillColor: Colors.grey[50],
+            focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                borderSide: BorderSide(
+                  color: Colors.red, //边框颜色为绿色
+                  width: 1, //宽度为5
+                )),
+            enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                borderSide: BorderSide(
+                  color: Colors.grey,
+                  width: 1,
+                )),
+          ),
+          controller: _userName,
+        ),
+        const SizedBox(height: 20,),
+        // Email
+        TextField(
+          decoration: InputDecoration(
+            labelText: Strings.email,
+            labelStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+            ),
+            hintText: "Your email address",
+            hintStyle: const TextStyle(
+                color: Colors.black26,
+                fontSize: 18,
+                fontStyle: FontStyle.italic
+            ),
+            filled: true,
+            fillColor: Colors.grey[50],
+            focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                borderSide: BorderSide(
+                  color: Colors.red, //边框颜色为绿色
+                  width: 1, //宽度为5
+                )),
+            enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                borderSide: BorderSide(
+                  color: Colors.grey,
+                  width: 1,
+                )),
+          ),
+          keyboardType: TextInputType.emailAddress,
+          controller: _userEmail,
+        ),
+        const SizedBox(height: 20,),
+        //Password
+        TextField(
+          decoration: InputDecoration(
+            labelText: Strings.password,
+            labelStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+            ),
+            hintText: "Your password",
+            hintStyle: const TextStyle(
+                color: Colors.black26,
+                fontSize: 18,
+                fontStyle: FontStyle.italic
+            ),
+            filled: true,
+            fillColor: Colors.grey[50],
+            focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                borderSide: BorderSide(
+                  color: Colors.red, //边框颜色为绿色
+                  width: 1, //宽度为5
+                )),
+            enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                borderSide: BorderSide(
+                  color: Colors.grey,
+                  width: 1,
+                )),
+          ),
+          controller: _userPassword,
+        ),
       ],
     );
   }
@@ -143,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       children: [
         MaterialButton(onPressed: ((){
-
+            setState((){});
         }),
           height: 66,
           color: Colors.black,
@@ -153,13 +270,20 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(Strings.login, style: const TextStyle(fontSize: 20, color: Colors.white),)
+              Text(login? Strings.login : Strings.signup, style: const TextStyle(fontSize: 20, color: Colors.white),)
             ],
           ),
         ),
-        Text()
+        const SizedBox(height: 10,),
+        GestureDetector(
+            onTap:(){
+              setState((){
+                login = !login;
+              });
+            },
+            child:Text(login ? Strings.toRegister: Strings.toLogin , style:const TextStyle(color: Colors.black26, fontSize: 18),)
+        )
       ],
-      
     );
   }
 }

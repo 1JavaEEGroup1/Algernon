@@ -27,6 +27,7 @@ class Strings {
   static String signupTips = "It only takes a minute to create your account";
   static String signup = "Create Account";
   static String toRegister = "Don’t have an account? Sign Up";
+  static String toLogin = "Already registered? Login";
 }
 
 class ImageString{

@@ -1,5 +1,4 @@
 import 'package:algernon/configuration.dart';
-import 'package:algernon/ui/loginScreen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -70,7 +69,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       children: [
         //Email
         MaterialButton(onPressed: ((){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          Navigator.of(context).pushNamed("/login");
         }),
           height: 66,
           color: Colors.black,

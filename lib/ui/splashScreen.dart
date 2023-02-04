@@ -1,5 +1,4 @@
 import 'package:algernon/configuration.dart';
-import 'package:algernon/ui/welcomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +29,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future startNextPage() async{
     await Future.delayed(const Duration(milliseconds: 3000));
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    Navigator.of(context).pushReplacementNamed("/welcome");
   }
 }

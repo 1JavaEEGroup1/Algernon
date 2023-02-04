@@ -1,11 +1,21 @@
 import 'package:algernon/ui/drawerScreen.dart';
 import 'package:algernon/ui/homeScreen.dart';
+import 'package:algernon/ui/loginScreen.dart';
 import 'package:algernon/ui/splashScreen.dart';
+import 'package:algernon/ui/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: SplashScreen(),
+  runApp(MaterialApp(
+    home: const SplashScreen(),
+    routes: <String, WidgetBuilder>{
+      '/login':(BuildContext) => const LoginScreen(),
+      '/home' :(BuildContext) => const HomePage(),
+      '/welcome':(BuildContext) => const WelcomeScreen(),
+    },
+    onGenerateRoute: (RouteSettings settings){
+
+    },
   ));
 }
 

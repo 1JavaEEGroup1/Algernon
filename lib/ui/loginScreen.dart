@@ -260,7 +260,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       children: [
         MaterialButton(onPressed: ((){
-            setState((){});
+            setState((){
+              Navigator.of(context).pushNamed("/home");
+            });
         }),
           height: 66,
           color: Colors.black,

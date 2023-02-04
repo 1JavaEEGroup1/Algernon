@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:algernon/configuration.dart';
 import 'package:algernon/ui/descriptionScreen.dart';
+import 'package:algernon/ui/detailScreen.dart';
 import 'package:algernon/ui/widget/Banner.dart';
 import 'package:flutter/material.dart';
 
@@ -225,7 +226,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             onTap: (){
-              print("点击列表: $index");
+              print("点击主页列表: $index");
+              // Navigator.of(context).pushNamed("/detail", arguments: index);
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailScreen(newsId: index)));
             },
           )
         ),

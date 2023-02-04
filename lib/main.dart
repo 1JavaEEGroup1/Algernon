@@ -1,4 +1,5 @@
 import 'package:algernon/ui/bookmarkScreen.dart';
+import 'package:algernon/ui/detailScreen.dart';
 import 'package:algernon/ui/drawerScreen.dart';
 import 'package:algernon/ui/homeScreen.dart';
 import 'package:algernon/ui/loginScreen.dart';
@@ -11,14 +12,18 @@ void main() {
   runApp(MaterialApp(
     home: const SplashScreen(),
     routes: <String, WidgetBuilder>{
-      '/login':(BuildContext) => const LoginScreen(),
-      '/home' :(BuildContext) => const HomePage(),
-      '/welcome':(BuildContext) => const WelcomeScreen(),
-      '/notification' : (BuildContext) => const NotificationScreen(),
-      '/saved': (BuildContext) => const SavedNewsScreen(),
+      '/login':(context) => const LoginScreen(),
+      '/home' :(context) => const HomePage(),
+      '/welcome':(context) => const WelcomeScreen(),
+      '/notification' : (context) => const NotificationScreen(),
+      '/saved': (context) => const SavedNewsScreen(),
     },
     onGenerateRoute: (RouteSettings settings){
-
+      if(settings.name == "/detail"){
+        final args = settings.arguments as int;
+        return MaterialPageRoute(builder: (_) => DetailScreen(newsId: args,));
+      }
+      return null;
     },
   ));
 }

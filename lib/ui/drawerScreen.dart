@@ -53,14 +53,21 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   onTap: () {
                     setState(() {
                       if (element['selected'] == 0) {
+                        ///清空状态并赋予状态
                         for (int i = 0; i < drawerItems.length; i++) {
                           drawerItems[i]['selected'] = 0;
                           if (element == drawerItems[i]) {
                             nowDrawerItem = element;
                             nowDrawerCount = i;
+                            element['selected'] = 1;
                           }
                         }
-                        element['selected'] = 1;
+                        switch(nowDrawerCount){
+                          case 1:
+                            drawerStatus(0);
+                            Navigator.of(context).pushNamed("/saved");
+
+                        }
                       }
                     });
                   },
@@ -83,7 +90,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       element['selected'] == 1
                           ? Text(element['title'],
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 20))
+                                  const TextStyle(color: Colors.white, fontSize: 20))
                           : Text(element['title'],
                               style: TextStyle(
                                   color: Colors.grey[700], fontSize: 20))

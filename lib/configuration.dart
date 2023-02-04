@@ -47,5 +47,12 @@ List<Map> drawerItems = [
   {'icon': Icons.person_outline_outlined, 'title': "Profile", 'selected': 0}
 ];
 
+void drawerStatus(int index){
+  for (int i = 0; i < drawerItems.length; i++) {
+    drawerItems[i]['selected'] = 0;
+  }
+  drawerItems[index]['selected'] = 1;
+}
+
 var nowDrawerItem = drawerItems[0];
 var nowDrawerCount = 0;

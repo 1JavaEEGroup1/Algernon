@@ -1,3 +1,4 @@
+import 'package:algernon/ui/bookmarkScreen.dart';
 import 'package:algernon/ui/drawerScreen.dart';
 import 'package:algernon/ui/homeScreen.dart';
 import 'package:algernon/ui/loginScreen.dart';
@@ -13,7 +14,8 @@ void main() {
       '/login':(BuildContext) => const LoginScreen(),
       '/home' :(BuildContext) => const HomePage(),
       '/welcome':(BuildContext) => const WelcomeScreen(),
-      '/notification' : (BuildContext) => const NotificationScreen()
+      '/notification' : (BuildContext) => const NotificationScreen(),
+      '/saved': (BuildContext) => const SavedNewsScreen(),
     },
     onGenerateRoute: (RouteSettings settings){
 

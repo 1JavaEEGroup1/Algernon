@@ -22,9 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late Animation animation;
 
+
   @override
   Widget build(BuildContext context) {
-    // xOffset = MediaQuery.of(context).;
     return AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)
         ..scale(scaleFactor)
@@ -44,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       titleBar(),
                       label(),
-                      banner(),
                     ],
                   )
               )
@@ -102,7 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       }),
                   IconButton(
                       icon: const Icon(Icons.notifications_outlined),
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed("/notification");
+                      }),
                 ],
               ),
             ],
@@ -182,6 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ///banner
   banner() {
     return BannerWidget(
+      imageMargin: const EdgeInsets.symmetric(horizontal: 24),
       imageRadius: const BorderRadius.only(
         topLeft: Radius.circular(35),
         bottomRight: Radius.circular(35),
@@ -194,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Strings.titleImageUrl
       ],
       onPageClicked: (index) {
-        print(index);
+        print("banner:  $index");
       },
       stringList: const [
         "This is the first banner",
@@ -204,49 +206,70 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget listNews() {
-    return ListView.builder(itemCount: 20 ,itemBuilder: (context, index) =>
-        GestureDetector(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(ImageString.googleLogo, width: 96, height: 96,),
-                const SizedBox(width: 10,),
-                Expanded(child: textDetail(index) )
-              ],
+  listNews() {
+    return ListView.separated(
+      padding: EdgeInsets.zero,
+      itemCount: 20 ,
+      itemBuilder: (context, index) =>(
+          index == 0 ? banner():
+          GestureDetector(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(ImageString.googleLogo, width: 96, height: 96,),
+                  const SizedBox(width: 10,),
+                  Expanded(child: textDetail(index) )
+                ],
+              ),
             ),
-          ),
-          onTap: (){
-            print("点击列表: $index");
-          },
+            onTap: (){
+              print("点击列表: $index");
+            },
+          )
         ),
+      separatorBuilder: (BuildContext context, int index) {
+        if (index ==0) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+                children: const [
+                  SizedBox(width:20),
+                  Text("Latest News", style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+                  // const Text("Update 1 minute ago", style: TextStyle(color: Colors.red, fontSize: 12)),
+                ],
+              ),
+          );
+        } else {
+          return const Divider(thickness: 1, color: Colors.black26, indent: 24, endIndent: 24,);
+        }
+      },
     );
   }
 
-  Widget textDetail(int index) {
+  textDetail(int index) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Category$index", style: const TextStyle(
             color: Colors.black26,
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: FontWeight.bold
         ),),
         const SizedBox(height: 10,),
         const Text("Title ccccccccccccccccccccccccccccccc", style: TextStyle(
             color: Colors.black,
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: FontWeight.bold
         )),
-        const SizedBox(height: 10,),
+        const SizedBox(height: 5,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text("Time", style: TextStyle(
               color: Colors.black26,
-              fontSize: 16,
+              fontSize: 14,
             )),
             IconButton(
               icon: Icon(isFavoriate ? Icons.bookmark_added :Icons.bookmark_add_outlined, color: Colors.black26),

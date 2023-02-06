@@ -12,15 +12,27 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
 
+  String title = "Here's What You Need To Know About Dumplings";
+  String category = "Category";
+  String issue_time = "6 min read - 10 mins ago";
+
+  int comments = 99;
+  int thumb_up = 634;
+  String author = "Jean Prangley";
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        appBar(),
-        SliverList(delegate: SliverChildBuilderDelegate(
-            (context, index) => Text("index")
-        ))
-      ],
+    return Material(
+      child: CustomScrollView(
+        slivers: [
+          appBar(),
+          SliverToBoxAdapter(child: information(),),
+          // content(),
+          SliverList(delegate: SliverChildBuilderDelegate(
+                  (context, index) => Text("bbbindex")
+          ))
+        ],
+      ),
     );
   }
 
@@ -75,20 +87,74 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
           Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text("Here's What You Need To Know About Dumplings", style: TextStyle(fontSize: 25, color: Colors.black), maxLines: 2,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(title, style: const TextStyle(fontSize: 25, color: Colors.black), maxLines: 2,),
               ),
               Row(children: [
                 const SizedBox(width: 15,),
-                Chip(label: Text("Category", style: const TextStyle(color: Colors.white),), backgroundColor: Colors.black26,),
+                Chip(label: Text(category, style: const TextStyle(color: Colors.black),), backgroundColor: Colors.black26,),
                 const SizedBox(width: 15,),
-                Text("6 min read - 10 mins ago", style: const TextStyle(color: Colors.black))
+                Text(issue_time, style: const TextStyle(color: Colors.black))
               ],),
             ],
           )
         ],
       ),
     );
+  }
+
+  information() {
+    return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Chip(
+              padding: const EdgeInsets.all(10),
+              label: Text(author, style: TextStyle(fontSize: 14, color: Colors.white)),
+              avatar: Image.asset(ImageString.googleLogo),
+              backgroundColor: Colors.black,
+              ),
+            Chip(
+              padding: const EdgeInsets.all(10),
+              label: Text(thumb_up.toString(), style: const TextStyle(fontSize: 14, color: Colors.black)),
+              avatar: const Icon(Icons.thumb_up_alt_outlined, size: 18),
+              backgroundColor: Colors.black12,
+            ),
+            GestureDetector(
+              onTap: (()async{
+                final result = showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (_) => DraggableScrollableSheet(
+                        builder: (context, ScrollController controller){
+                          return Container(
+                            child: commentUI()
+                          );
+                        }
+                    ));
+                print("vvvv");
+              }),
+              child: Chip(
+                padding: const EdgeInsets.all(10),
+                label: Text(comments.toString(), style: const TextStyle(fontSize: 14, color: Colors.black)),
+                avatar: const Icon(Icons.comment_outlined, size: 20),
+                backgroundColor: Colors.black12,
+              ),
+            ),
+          ],
+        ),
+      );
+  }
+
+  content() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: const Text("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"),
+    );
+  }
+
+  commentUI() {
   }
 }

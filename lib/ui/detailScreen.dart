@@ -20,6 +20,15 @@ class _DetailScreenState extends State<DetailScreen> {
   int thumb_up = 634;
   String author = "Jean Prangley";
 
+  String content = "T";
+
+  @override
+  void initState() {
+    for(var i = 0; i< 1000 ; i++){
+      content += "aaaaaaaaa";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -28,7 +37,9 @@ class _DetailScreenState extends State<DetailScreen> {
           appBar(),
           SliverToBoxAdapter(child: information(),),
           // content(),
-          SliverList(delegate: SliverChildBuilderDelegate(
+          SliverList(
+            
+              delegate: SliverChildBuilderDelegate(
                   (context, index) => Text("bbbindex")
           ))
         ],

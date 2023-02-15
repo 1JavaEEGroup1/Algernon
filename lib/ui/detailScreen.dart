@@ -1,3 +1,4 @@
+
 import 'package:algernon/configuration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
         slivers: [
           appBar(),
           SliverToBoxAdapter(child: information(),),
-          // content(),
+          // contents(),
           SliverList(
             
               delegate: SliverChildBuilderDelegate(
@@ -123,7 +124,7 @@ class _DetailScreenState extends State<DetailScreen> {
           children: [
             Chip(
               padding: const EdgeInsets.all(10),
-              label: Text(author, style: TextStyle(fontSize: 14, color: Colors.white)),
+              label: Text(author, style: const TextStyle(fontSize: 14, color: Colors.white)),
               avatar: Image.asset(ImageString.googleLogo),
               backgroundColor: Colors.black,
               ),
@@ -133,19 +134,21 @@ class _DetailScreenState extends State<DetailScreen> {
               avatar: const Icon(Icons.thumb_up_alt_outlined, size: 18),
               backgroundColor: Colors.black12,
             ),
+            ///Comment Chip
             GestureDetector(
               onTap: (()async{
                 final result = showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
+                    useRootNavigator: true,
+                    enableDrag: false,
                     builder: (_) => DraggableScrollableSheet(
+                      initialChildSize: 0.95,
+                        expand: true,
                         builder: (context, ScrollController controller){
-                          return Container(
-                            child: commentUI()
-                          );
+                          return commentUI();
                         }
                     ));
-                print("vvvv");
               }),
               child: Chip(
                 padding: const EdgeInsets.all(10),
@@ -159,7 +162,7 @@ class _DetailScreenState extends State<DetailScreen> {
       );
   }
 
-  content() {
+  contents() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: const Text("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"),
@@ -167,5 +170,45 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   commentUI() {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Comments", style: TextStyle(color: Colors.black, fontSize: 24),),
+        backgroundColor: Colors.white,
+        elevation: 1,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.black,), onPressed: () {  },
+          )
+        ],
+        leading: BackButton(color: Colors.black,
+            onPressed: (){
+                Navigator.pop(context);
+            }
+        ),
+      ),
+      body: ListView.separated(
+        itemBuilder: (context, index) =>
+            GestureDetector(
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(ImageString.googleLogo, width: 96, height: 96,),
+                    const SizedBox(width: 10,),
+                    Expanded(child: Text(index.toString())),
+                  ],
+                ),
+              ),
+              onTap: (){
+                print("点击列表: $index");
+              },
+            ),
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(thickness: 1, color: Colors.black26, indent: 24, endIndent: 24,);
+        },
+        itemCount: 20,
+      ),
+    );
   }
 }

@@ -5,7 +5,7 @@ class Strings {
 
   static String email = "Email";
   static String password = "Password";
-  static String name = "Name";
+  static String name = "UserName";
   static String login = "Login";
 
   static String tag1 = "Popular";

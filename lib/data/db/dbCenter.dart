@@ -16,12 +16,15 @@ void saveUser(Data user, BuildContext context) async {
       .whenComplete(() => toast("Data Saved Successful !!", context));
 }
 
-Data getUser(){
-  Data user = Data();
-  prefs.then((value){
+Future<Data> getUser() async{
+  Data user;
+  user = await prefs.then((value){
+    Data user = Data();
     user.id = value.getInt("id");
     user.email = value.getString("email");
     user.username = value.getString("username");
+    print("${user.id} + ${user.email} + ${user.username}");
+    return user;
   });
   return user;
 }

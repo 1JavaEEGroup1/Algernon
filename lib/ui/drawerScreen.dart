@@ -1,4 +1,5 @@
 import 'package:algernon/configuration.dart';
+import 'package:algernon/data/db/dbCenter.dart';
 import 'package:flutter/material.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -9,6 +10,9 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  String username = "Miroslava Savitskaya";
+  String email = "MemberShip";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +24,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
+
+  @override
+  initState() {
+    final user = getUser();
+    user.then((value){
+      username = value.username!;
+      email = value.email!;
+      setState((){});
+    });
+  }
+
   userTitle() {
     return Row(
       children: [
@@ -27,13 +42,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text("Miroslava Savitskaya",
-                style: TextStyle(
+          children:  [
+            Text(username,
+                style: const TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold)),
             Text(
-              "MemberShip",
-              style: TextStyle(
+              email,
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 11),
@@ -128,7 +143,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
         ),
         const SizedBox(width: 10),
         GestureDetector(
-          onTap: (() {}),
+          onTap: (() {
+            Navigator.of(context).pushReplacementNamed("/login");
+          }),
           child: Row(
             children: const [
               Icon(

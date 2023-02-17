@@ -1,3 +1,4 @@
+
 import 'package:algernon/ui/bookmarkScreen.dart';
 import 'package:algernon/ui/detailScreen.dart';
 import 'package:algernon/ui/drawerScreen.dart';
@@ -6,6 +7,7 @@ import 'package:algernon/ui/loginScreen.dart';
 import 'package:algernon/ui/notificationScreen.dart';
 import 'package:algernon/ui/splashScreen.dart';
 import 'package:algernon/ui/welcomeScreen.dart';
+import 'package:algernon/ui/writeScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,6 +22,7 @@ void main() {
       '/welcome':(context) => const WelcomeScreen(),
       '/notification' : (context) => const NotificationScreen(),
       '/saved': (context) => const SavedNewsScreen(),
+      '/write': (context) => const WriteScreen()
     },
     onGenerateRoute: (RouteSettings settings){
       if(settings.name == "/detail"){

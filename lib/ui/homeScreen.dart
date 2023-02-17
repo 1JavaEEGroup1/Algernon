@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 
 import 'package:algernon/configuration.dart';
@@ -22,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isFavoriate = false;
 
   late Animation animation;
-
 
   @override
   Widget build(BuildContext context) {

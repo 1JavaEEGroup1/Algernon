@@ -29,6 +29,11 @@ class Strings {
   static String signup = "Create Account";
   static String toRegister = "Don’t have an account? Sign Up";
   static String toLogin = "Already registered? Login";
+  //write news
+  static String uploadCover = "Upload News Cover";
+  static String uploadTitle = "Title";
+  static String uploadContent = "Content";
+  static String uploadTopic = "Topic";
 }
 
 class ImageString{

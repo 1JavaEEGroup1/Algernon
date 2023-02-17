@@ -1,6 +1,6 @@
 import 'package:algernon/configuration.dart';
 import 'package:algernon/data/db/dbCenter.dart';
-import 'package:algernon/data/network/netCenter.dart';
+import 'package:algernon/data/network/api/loginApi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

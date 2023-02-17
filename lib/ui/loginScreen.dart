@@ -1,4 +1,6 @@
 import 'package:algernon/configuration.dart';
+import 'package:algernon/data/db/dbCenter.dart';
+import 'package:algernon/data/network/netCenter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   bool login = true;
   final TextEditingController _userName = TextEditingController();
   final TextEditingController _userPassword = TextEditingController();
@@ -260,9 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       children: [
         MaterialButton(onPressed: ((){
-            setState((){
-              Navigator.of(context).pushNamed("/home");
-            });
+            logic();
         }),
           height: 66,
           color: Colors.black,
@@ -287,5 +288,20 @@ class _LoginScreenState extends State<LoginScreen> {
         )
       ],
     );
+  }
+
+  void logic() {
+    if(login){
+      var result = requestLogin(_userName.text, _userPassword.text);
+      result.then((value){
+        toast(value.message ?? "", context);
+        saveUser(value.data!, context);
+        Navigator.of(context).pushReplacementNamed("/home");
+      });
+    }else{
+      var result = requestSignup(_userName.text, _userEmail.text, _userPassword.text);
+      result.then((value) =>
+          toast(value.message ?? " ", context));
+    }
   }
 }

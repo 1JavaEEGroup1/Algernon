@@ -9,8 +9,11 @@ import 'package:algernon/ui/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
   runApp(MaterialApp(
     home: const SplashScreen(),
+    navigatorKey: navigatorKey,
     routes: <String, WidgetBuilder>{
       '/login':(context) => const LoginScreen(),
       '/home' :(context) => const HomePage(),

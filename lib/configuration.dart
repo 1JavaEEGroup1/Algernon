@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 class Strings {
 
@@ -56,3 +57,20 @@ void drawerStatus(int index){
 
 var nowDrawerItem = drawerItems[0];
 var nowDrawerCount = 0;
+
+toast(String msg, BuildContext context){
+  ///Set both animation and reverse animation,
+  ///combination different animation and reverse animation to achieve amazing effect.
+  showToast(msg,
+    context: context,
+    animation: StyledToastAnimation.scale,
+    reverseAnimation: StyledToastAnimation.fade,
+    position: StyledToastPosition.center,
+    animDuration: const Duration(seconds: 1),
+    duration: const Duration(seconds: 3),
+    curve: Curves.elasticOut,
+    reverseCurve: Curves.linear,
+  );
+}
+
+

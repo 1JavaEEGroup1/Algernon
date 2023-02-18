@@ -26,7 +26,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     for(var i = 0; i< 1000 ; i++){
-      content += "aaaaaaaaa";
+      content += "aaaaaaaaa /";
     }
   }
 
@@ -37,12 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
         slivers: [
           appBar(),
           SliverToBoxAdapter(child: information(),),
-          // contents(),
-          SliverList(
-            
-              delegate: SliverChildBuilderDelegate(
-                  (context, index) => Text("bbbindex")
-          ))
+          SliverToBoxAdapter(child: contents())
         ],
       ),
     );
@@ -165,7 +160,8 @@ class _DetailScreenState extends State<DetailScreen> {
   contents() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      child: const Text("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"),
+      child: Text(content, style: const TextStyle(fontSize: 20, letterSpacing: 0.3, wordSpacing: 2),
+      strutStyle: const StrutStyle(leading: 0.5),),
     );
   }
 

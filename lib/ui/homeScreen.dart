@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:algernon/configuration.dart';
+import 'package:algernon/data/entity/net/news.dart';
+import 'package:algernon/data/network/api/newsApi.dart';
 import 'package:algernon/ui/descriptionScreen.dart';
 import 'package:algernon/ui/detailScreen.dart';
 import 'package:algernon/ui/widget/Banner.dart';
@@ -21,6 +23,18 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isFavoriate = false;
 
   late Animation animation;
+
+  late List<Data> _data;
+
+  @override
+  void initState() {
+    getNews().then((value){
+      setState((){
+        _data = value.data!;
+      });
+      toast(value.message!, context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   //titleBar include icon back, search and notification
   Widget titleBar() {
     return Material(
@@ -206,46 +219,48 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   listNews() {
-    return ListView.separated(
-      padding: EdgeInsets.zero,
-      itemCount: 20 ,
-      itemBuilder: (context, index) =>(
-          index == 0 ? banner():
-          GestureDetector(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: ListView.separated(
+        padding: EdgeInsets.zero,
+        itemCount: _data.length + 1,
+        itemBuilder: (context, index) =>(
+            index == 0 ? banner():
+            GestureDetector(
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.network(_data[index - 1].coverUrl == null ? Strings.titleImageUrl : _data[index - 1].coverUrl!, width: 96, height: 96, fit: BoxFit.cover,),
+                    const SizedBox(width: 10,),
+                    Expanded(child: textDetail(index) )
+                  ],
+                ),
+              ),
+              onTap: (){
+                // Navigator.of(context).pushNamed("/detail", arguments: index);
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailScreen(newsId: _data[index - 1].id!)));
+              },
+            )
+          ),
+        separatorBuilder: (BuildContext context, int index) {
+          if (index ==0) {
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Image.asset(ImageString.googleLogo, width: 96, height: 96,),
-                  const SizedBox(width: 10,),
-                  Expanded(child: textDetail(index) )
-                ],
-              ),
-            ),
-            onTap: (){
-              print("点击主页列表: $index");
-              // Navigator.of(context).pushNamed("/detail", arguments: index);
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailScreen(newsId: index)));
-            },
-          )
-        ),
-      separatorBuilder: (BuildContext context, int index) {
-        if (index ==0) {
-          return Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-                children: const [
-                  SizedBox(width:20),
-                  Text("Latest News", style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
-                  // const Text("Update 1 minute ago", style: TextStyle(color: Colors.red, fontSize: 12)),
-                ],
-              ),
-          );
-        } else {
-          return const Divider(thickness: 1, color: Colors.black26, indent: 24, endIndent: 24,);
-        }
-      },
+                  children: const [
+                    SizedBox(width:20),
+                    Text("Latest News", style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+                    // const Text("Update 1 minute ago", style: TextStyle(color: Colors.red, fontSize: 12)),
+                  ],
+                ),
+            );
+          } else {
+            return const Divider(thickness: 1, color: Colors.black26, indent: 24, endIndent: 24,);
+          }
+        },
+      ),
     );
   }
 
@@ -253,13 +268,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Category$index", style: const TextStyle(
+    // _data[index - 1].topics![0].id.toString()
+        Text(_data[index - 1].author!.username!, style: const TextStyle(
             color: Colors.black26,
             fontSize: 14,
             fontWeight: FontWeight.bold
         ),),
         const SizedBox(height: 10,),
-        const Text("Title ccccccccccccccccccccccccccccccc", style: TextStyle(
+        Text(_data[index - 1].title!, style: const TextStyle(
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.bold
@@ -268,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Time", style: TextStyle(
+            Text(_data[index - 1].publishTime.toString(), style: const TextStyle(
               color: Colors.black26,
               fontSize: 14,
             )),
@@ -285,5 +301,14 @@ class _HomeScreenState extends State<HomeScreen> {
         )
       ],
     );
+  }
+
+  Future<void> _onRefresh() async {
+    getNews().then((value){
+      setState((){
+        _data = value.data!;
+      });
+      toast(value.message!, context);
+    });
   }
 }

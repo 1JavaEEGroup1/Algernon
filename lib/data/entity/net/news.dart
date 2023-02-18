@@ -24,7 +24,39 @@ class ResponseAddNews {
     return data;
   }
 }
+////////////////////////////////////////
+class ResponseGetNews {
+  int? timestamp;
+  String? status;
+  String? message;
+  List<Data>? data;
 
+  ResponseGetNews({this.timestamp, this.status, this.message, this.data});
+
+  ResponseGetNews.fromJson(Map<String, dynamic> json) {
+    timestamp = json['timestamp'];
+    status = json['status'];
+    message = json['message'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(Data.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['timestamp'] = timestamp;
+    data['status'] = status;
+    data['message'] = message;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+//////////////////subconstruct///////////////
 class Data {
   int? id;
   String? coverUrl;
@@ -36,7 +68,7 @@ class Data {
   List<Topics>? topics;
   String? readNum;
   String? likeNum;
-  String? comments;
+  List<dynamic>? comments;
 
   Data(
       {this.id,
@@ -126,3 +158,6 @@ class Topics {
     return data;
   }
 }
+
+
+

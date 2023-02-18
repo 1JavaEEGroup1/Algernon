@@ -18,3 +18,13 @@ Future<ResponseAddNews> addNews(String title, String content, int authorId, int 
   final result = ResponseAddNews.fromJson(response.data);
   return result;
 }
+
+Future<ResponseGetNews> getNews() async {
+  print("getNews");
+  Response response;
+  response = await anotherDio.get(
+    '/new/all',
+  );
+  final result = ResponseGetNews.fromJson(response.data);
+  return result;
+}
